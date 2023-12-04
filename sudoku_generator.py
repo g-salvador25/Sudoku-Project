@@ -1,6 +1,8 @@
 import math,random
 import pygame
 
+#this is never getting done
+
 
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
@@ -28,7 +30,7 @@ class SudokuGenerator:
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
-        self.board = [["0" for j in range(9)] * 9]
+        self.board = [["_" for j in range(9)] * 9]
         self.box_length =  math.sqrt(self.row_length)
 
     '''
@@ -60,8 +62,8 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_row(self, row, num):
-        for numbers in self.board[row]:
-            if num == numbers:
+        for index in range(len(self.board[row])):
+            if num == self.board[row][index]:
                 return False
         return True
 
@@ -94,8 +96,12 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row_start, col_start, num):
-        pass
-    
+        for row_index in range(row_start, row_start+3):
+            for col_index in range(col_start, col_start+3):
+                if num == self.board[row_index][col_index]:
+                    return False
+        return True
+
     '''
     Determines if it is valid to enter num at (row, col) in the board
     This is done by checking that num is unused in the appropriate, row, column, and box
@@ -106,8 +112,40 @@ class SudokuGenerator:
 
 	Return: boolean
     '''
-    def is_valid(self, row, col, num):
-        pass
+    def is_valid(self, row, col, num): #see if okay
+        if self.valid_in_row(row, num) is True:
+            if self.valid_in_col(col, num) is True:
+                if (row >= 0) or (row <= 2):
+                    if (col >= 0) or (col <= 2):
+                        if self.valid_in_box(0, 0, num) is True:
+                            return True
+                    elif (col >= 3) or (col <= 5):
+                        if self.valid_in_box(0, 3, num) is True:
+                            return True
+                    elif (col >= 6) or (col <= 8):
+                        if self.valid_in_box(0, 6, num) is True:
+                            return True
+                elif (row >= 3) or (row <= 5):
+                    if (col >= 0) or (col <= 2):
+                        if self.valid_in_box(3, 0, num) is True:
+                            return True
+                    elif (col >= 3) or (col <= 5):
+                        if self.valid_in_box(3, 3, num) is True:
+                            return True
+                    elif (col >= 6) or (col <= 8):
+                        if self.valid_in_box(3, 6, num) is True:
+                            return True
+                elif (row >= 6) or (row <= 8):
+                    if (col >= 0) or (col <= 2):
+                        if self.valid_in_box(6, 0, num) is True:
+                            return True
+                    elif (col >= 3) or (col <= 5):
+                        if self.valid_in_box(6, 3, num) is True:
+                            return True
+                    elif (col >= 6) or (col <= 8):
+                        if self.valid_in_box(6, 6, num) is True:
+                            return True
+        return False
 
     '''
     Fills the specified 3x3 box with values
@@ -120,7 +158,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_box(self, row_start, col_start):
-        pass
+
     
     '''
     Fills the three boxes along the main diagonal of the board
