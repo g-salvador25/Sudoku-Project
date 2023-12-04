@@ -1,7 +1,7 @@
 import math,random
 import pygame
 
-#this is never getting done
+
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
 https://www.geeksforgeeks.org/program-sudoku-generator/
