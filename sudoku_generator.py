@@ -1,5 +1,6 @@
 import math,random
 
+
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
 https://www.geeksforgeeks.org/program-sudoku-generator/
@@ -26,7 +27,7 @@ class SudokuGenerator:
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
-        self.board = [["0" for j in range(9)] * 9]
+        self.board = [["_" for j in range(9)] * 9]
         self.box_length =  math.sqrt(self.row_length)
 
     '''
@@ -93,8 +94,12 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row_start, col_start, num):
-        pass
-    
+        for row_index in range(row_start, row_start+3):
+            for col_index in range(col_start, col_start+3):
+                if num == self.board[row_index][col_index]:
+                    return False
+        return True
+
     '''
     Determines if it is valid to enter num at (row, col) in the board
     This is done by checking that num is unused in the appropriate, row, column, and box
@@ -106,7 +111,9 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def is_valid(self, row, col, num):
-        pass
+        if self.valid_in_row(row, num) is True:
+            if self.valid_in_col(col, num) is True:
+                if self.valid_in_box() #how to check in box
 
     '''
     Fills the specified 3x3 box with values
