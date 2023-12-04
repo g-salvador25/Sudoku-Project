@@ -1,7 +1,6 @@
 import pygame, sys
 
 def draw_grid():
-
     for i in range(0, 10):
         if i % 3 == 0:
             width = 7
