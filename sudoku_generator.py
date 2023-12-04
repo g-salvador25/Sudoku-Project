@@ -1,5 +1,7 @@
 import math,random
+import pygame
 
+#this is never getting done
 
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
@@ -47,8 +49,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self):
-
-
+        print(self.board)
     '''
 	Determines if num is contained in the specified row (horizontal) of the board
     If num is already in the specified row, return False. Otherwise, return True
