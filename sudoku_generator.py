@@ -1,7 +1,7 @@
 import math,random
 import pygame
 
-#this is never getting done
+
 
 
 """
@@ -11,7 +11,7 @@ https://www.geeksforgeeks.org/program-sudoku-generator/
 """
 
 class SudokuGenerator:
-   
+
     '''
 	create a sudoku board - initialize class variables and set up the 2D board
 	This should initialize:
@@ -25,6 +25,7 @@ class SudokuGenerator:
     removed_cells is an integer value - the number of cells to be removed
 
 	Return:
+
 	None
     '''
     def __init__(self, row_length, removed_cells):
@@ -58,7 +59,7 @@ class SudokuGenerator:
 	Parameters:
 	row is the index of the row we are checking
 	num is the value we are looking for in the row
-	
+
 	Return: boolean
     '''
     def valid_in_row(self, row, num):
@@ -74,7 +75,7 @@ class SudokuGenerator:
 	Parameters:
 	col is the index of the column we are checking
 	num is the value we are looking for in the column
-	
+
 	Return: boolean
     '''
     def valid_in_col(self, col, num):
@@ -169,7 +170,7 @@ class SudokuGenerator:
                         self.board[row_index][col_index] = num
                         filled = True
 
-    
+
     '''
     Fills the three boxes along the main diagonal of the board
     These are the boxes which start at (0,0), (3,3), and (6,6)
@@ -185,7 +186,7 @@ class SudokuGenerator:
     Provided for students
     Fills the remaining cells of the board
     Should be called after the diagonal boxes have been filled
-	
+
 	Parameters:
 	row, col specify the coordinates of the first empty (0) cell
 
@@ -210,7 +211,7 @@ class SudokuGenerator:
                 col = 0
                 if row >= self.row_length:
                     return True
-        
+
         for num in range(1, self.row_length + 1):
             if self.is_valid(row, col, num):
                 self.board[row][col] = num
@@ -236,7 +237,7 @@ class SudokuGenerator:
     This is done by setting some values to 0
     Should be called after the entire solution has been constructed
     i.e. after fill_values has been called
-    
+
     NOTE: Be careful not to 'remove' the same cell multiple times
     i.e. if a cell is already 0, it cannot be removed again
 
@@ -268,3 +269,75 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
+
+class Cell:
+
+    def __init__(self, value, row, col, screen):
+        self.value = value
+        self.row = row
+        self.col = col
+        self.screen = screen
+
+    def set_cell_value(self, value):
+        self.value = value
+
+    def set_sketched_value(self, value):
+        self.value = value
+
+    def draw(self):
+
+    #this is not complete and needs to be done
+
+class Board():
+
+    def __init__(self, width, height, screen):
+        self.width = width
+        self.height = height
+        self.screen = screen
+
+    def draw(self):
+        for i in range(0, 10):
+            if i % 3 == 0:
+                width = 7
+            else:
+                width = 3
+            pygame.draw.line(screen,
+                             (0, 0, 0),
+                             (0, i * 60),
+                             (540, i * 60),
+                             width)
+
+        for i in range(0, 10):
+            if i % 3 == 0:
+                width = 7
+            else:
+                width = 3
+            pygame.draw.line(screen,
+                             (0, 0, 0),
+                             (i * 60, 0),
+                             (i * 60, 540),
+                             width)
+
+    def select(self, row, col):
+        self.row
+        self.col
+
+    def click(self, x, y):
+
+
+    def clear(self):
+
+    def sketch(self, value):
+
+    def place_number(self, value):
+
+    def reset_to_original(self):
+
+    def is_full(self):
+
+    def update_board(self):
+
+    def find_empty(self):
+
+    def check_board(self):
+
