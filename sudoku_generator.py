@@ -1,8 +1,4 @@
 import math,random
-import pygame
-
-
-
 
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
@@ -160,9 +156,9 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_box(self, row_start, col_start):
-        filled = False
         for row_index in range(row_start, row_start+3):
             for col_index in range(col_start, col_start+3):
+                filled = False
                 while filled:
                     num = random.randrange(1,10)
                     if self.is_valid(row_index, col_index, num) is True:
@@ -178,7 +174,9 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_diagonal(self):
-        pass
+        self.fill_box(0, 0)
+        self.fill_box(3, 3)
+        self.fill_box(6, 6)
 
     '''
     DO NOT CHANGE
@@ -244,7 +242,17 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        pass
+        cells_removed = 0
+
+        while True:
+            if cells_removed > self.removed_cells:
+                break
+            random_col = random.randrange(0, 9)
+            random_row = random.randrange(0, 9)
+            if self.board[random_row][random_col] != 0:
+                self.board[random_row][random_col] = 0
+                cells_removed += 1
+
 
 '''
 DO NOT CHANGE
@@ -268,72 +276,3 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
-
-class Cell:
-
-    def __init__(self, value, row, col, screen):
-        self.value = value
-        self.row = row
-        self.col = col
-        self.screen = screen
-
-    def set_cell_value(self, value):
-        self.value = value
-
-    def set_sketched_value(self, value):
-        self.value = value
-
-    def draw(self):
-
-    #this is not complete and needs to be done
-
-class Board():
-
-    def __init__(self, width, height, screen):
-        self.width = width
-        self.height = height
-        self.screen = screen
-
-    def draw(self):
-        for i in range(0, 10):
-            if i % 3 == 0:
-                width = 7
-            else:
-                width = 3
-            pygame.draw.line(screen,
-                             (0, 0, 0),
-                             (0, i * 60),
-                             (540, i * 60),
-                             width)
-
-        for i in range(0, 10):
-            if i % 3 == 0:
-                width = 7
-            else:
-                width = 3
-            pygame.draw.line(screen,
-                             (0, 0, 0),
-                             (i * 60, 0),
-                             (i * 60, 540),
-                             width)
-
-    def select(self, row, col):
-
-    def click(self, x, y):
-
-    def clear(self):
-
-    def sketch(self, value):
-
-    def place_number(self, value):
-
-    def reset_to_original(self):
-
-    def is_full(self):
-
-    def update_board(self):
-
-    def find_empty(self):
-
-    def check_board(self):
-
