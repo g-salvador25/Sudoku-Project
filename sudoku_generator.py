@@ -26,7 +26,10 @@ class SudokuGenerator:
     def __init__(self, row_length, removed_cells):
         self.row_length = int(row_length)
         self.removed_cells = int(removed_cells)
-        self.board = [[0 for j in range(self.row_length)]] * self.row_length
+        self.board = []
+        for x in range(self.row_length):
+            self.board.append([0]* self.row_length)
+            #[0 for j in range(self.row_length)]] * self.row_length
         self.box_length = int(math.sqrt(self.row_length))
 
     '''
@@ -156,7 +159,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_box(self, row_start, col_start):
-        for row_index in range(row_start, row_start+3):
+        for row_index in range(row_start, row_start+3): #issue might be with the way i am iterating through the indices
             for col_index in range(col_start, col_start+3):
                 if self.board[row_index][col_index] == 0:
                     filled = False
@@ -178,7 +181,6 @@ class SudokuGenerator:
         self.fill_box(0, 0)
         self.fill_box(3, 3)
         self.fill_box(6, 6)
-        self.print_board() #take out
 
     '''
     DO NOT CHANGE
@@ -274,10 +276,10 @@ Return: list[list] (a 2D Python list to represent the board)
 def generate_sudoku(size, removed):
     sudoku = SudokuGenerator(size, removed)
     sudoku.fill_values()
-    #board = sudoku.get_board()
-    #sudoku.remove_cells()
-    #board = sudoku.get_board()
-    #sudoku.print_board()
-    # return board
+    board = sudoku.get_board()
+    sudoku.remove_cells()
+    board = sudoku.get_board()
+    sudoku.print_board()
+    return board
 
 board = generate_sudoku(9, 30)
