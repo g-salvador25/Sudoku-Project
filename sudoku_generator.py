@@ -249,7 +249,7 @@ class SudokuGenerator:
         cells_removed = 0
 
         while True:
-            if cells_removed > self.removed_cells:
+            if cells_removed >= self.removed_cells:
                 break
             random_col = random.randrange(0, 9)
             random_row = random.randrange(0, 9)
