@@ -1,5 +1,6 @@
 import math, random
 import pygame
+from sudoku_generator import SudokuGenerator, generate_sudoku
 
 
 class Cell:
@@ -9,9 +10,10 @@ class Cell:
         self.row = row
         self.col = col
         self.screen = screen
+        self.board = generate_sudoku()
 
     def set_cell_value(self, value):
-        self.value = value
+        self.board[self.row][self.col] = value
 
     def set_sketched_value(self, value):
         self.value = value
@@ -23,10 +25,9 @@ class Cell:
 class Board(Cell):
 
     def __init__(self, width, height, screen):
-        super().__init__(value, row, col, screen)
+        self.screen = screen
         self.width = width
         self.height = height
-        self.screen = screen
 
     def draw(self):
         for i in range(0, 10):
@@ -52,6 +53,7 @@ class Board(Cell):
                              width)
 
     def select(self, row, col):
+
 
     def click(self, x, y):
 
