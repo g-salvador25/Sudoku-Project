@@ -301,9 +301,10 @@ class Cell:
 
     #this is not complete and needs to be done
 
-class Board():
+class Board(Cell):
 
     def __init__(self, width, height, screen):
+        super().__init__(value, row, col, screen)
         self.width = width
         self.height = height
         self.screen = screen
@@ -314,7 +315,7 @@ class Board():
                 width = 7
             else:
                 width = 3
-            pygame.draw.line(screen,
+            pygame.draw.line(self.screen,
                              (0, 0, 0),
                              (0, i * 60),
                              (540, i * 60),
@@ -325,7 +326,7 @@ class Board():
                 width = 7
             else:
                 width = 3
-            pygame.draw.line(screen,
+            pygame.draw.line(self.screen,
                              (0, 0, 0),
                              (i * 60, 0),
                              (i * 60, 540),
