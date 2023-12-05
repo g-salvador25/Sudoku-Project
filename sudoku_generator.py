@@ -24,10 +24,10 @@ class SudokuGenerator:
 	None
     '''
     def __init__(self, row_length, removed_cells):
-        self.row_length = row_length
-        self.removed_cells = removed_cells
-        self.board = [[0 for j in range(9)] * 9]
-        self.box_length =  math.sqrt(self.row_length)
+        self.row_length = int(row_length)
+        self.removed_cells = int(removed_cells)
+        self.board = [[0 for j in range(self.row_length)]] * self.row_length
+        self.box_length = int(math.sqrt(self.row_length))
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -158,12 +158,13 @@ class SudokuGenerator:
     def fill_box(self, row_start, col_start):
         for row_index in range(row_start, row_start+3):
             for col_index in range(col_start, col_start+3):
-                filled = False
-                while filled:
-                    num = random.randrange(1,10)
-                    if self.is_valid(row_index, col_index, num) is True:
-                        self.board[row_index][col_index] = num
-                        filled = True
+                if self.board[row_index][col_index] == 0:
+                    filled = False
+                    while filled is False:
+                        num = random.randrange(1,10)
+                        if self.is_valid(row_index, col_index, num) is True:
+                             self.board[row_index][col_index] = num
+                             filled = True
 
     
     '''
@@ -173,10 +174,11 @@ class SudokuGenerator:
 	Parameters: None
 	Return: None
     '''
-    def fill_diagonal(self):
+    def fill_diagonal(self): #all boxes are filling instead of just diagonal
         self.fill_box(0, 0)
         self.fill_box(3, 3)
         self.fill_box(6, 6)
+        self.print_board() #take out
 
     '''
     DO NOT CHANGE
@@ -272,7 +274,10 @@ Return: list[list] (a 2D Python list to represent the board)
 def generate_sudoku(size, removed):
     sudoku = SudokuGenerator(size, removed)
     sudoku.fill_values()
-    board = sudoku.get_board()
-    sudoku.remove_cells()
-    board = sudoku.get_board()
-    return board
+    #board = sudoku.get_board()
+    #sudoku.remove_cells()
+    #board = sudoku.get_board()
+    #sudoku.print_board()
+    # return board
+
+board = generate_sudoku(9, 30)
