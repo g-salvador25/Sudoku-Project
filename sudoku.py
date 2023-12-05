@@ -33,9 +33,9 @@ def draw_num(obj, screen_obj):
             if obj[row][column] != 0:
                 cell_num = obj[row][column]
                 cell_text = font.render(str(cell_num), True, pygame.Color('black'))
-                screen.blit(cell_text, pygame.Vector2((column*60)+10, (row*60)+10))
+                screen.blit(cell_text, pygame.Vector2((column*60)+20, (row*60)+15))
 
-def sketch_num(obj, screen_obj, num):
+#def sketch_num(obj, screen_obj, num):
 
 
 
@@ -53,6 +53,5 @@ while True:
     for event in pygame.event.get():
         pygame.display.flip()
         if event.type == pygame.QUIT: sys.exit()
-    #draw_num(board, screen)
 
 
