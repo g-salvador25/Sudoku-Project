@@ -32,7 +32,7 @@ if __name__ == "__main__":
     screen.fill((255, 255, 245))
     draw_grid()
     board = SudokuGenerator(9,9)
-    board.is_valid(9,9)
+    #board.is_valid(9,9)
 
 
 
