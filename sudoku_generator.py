@@ -30,7 +30,7 @@ class SudokuGenerator:
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
-        self.board = [["_" for j in range(9)] * 9]
+        self.board = [[0 for j in range(9)] * 9]
         self.box_length =  math.sqrt(self.row_length)
 
     '''
@@ -78,7 +78,7 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_col(self, col, num):
-        for rows in self.board:
+        for rows in range(len(self.board)):
             if self.board[rows][col] == num:
                 return False
         return True
@@ -115,34 +115,36 @@ class SudokuGenerator:
     def is_valid(self, row, col, num): #see if okay
         if self.valid_in_row(row, num) is True:
             if self.valid_in_col(col, num) is True:
-                if (row >= 0) or (row <= 2):
-                    if (col >= 0) or (col <= 2):
+                if (row >= 0) and (row <= 2):
+                    if (col >= 0) and (col <= 2):
                         if self.valid_in_box(0, 0, num) is True:
                             return True
-                    elif (col >= 3) or (col <= 5):
+                    elif (col >= 3) and (col <= 5):
                         if self.valid_in_box(0, 3, num) is True:
                             return True
-                    elif (col >= 6) or (col <= 8):
+                    elif (col >= 6) and (col <= 8):
                         if self.valid_in_box(0, 6, num) is True:
                             return True
-                elif (row >= 3) or (row <= 5):
-                    if (col >= 0) or (col <= 2):
+
+                elif (row >= 3) and (row <= 5):
+                    if (col >= 0) and (col <= 2):
                         if self.valid_in_box(3, 0, num) is True:
                             return True
-                    elif (col >= 3) or (col <= 5):
+                    elif (col >= 3) and (col <= 5):
                         if self.valid_in_box(3, 3, num) is True:
                             return True
-                    elif (col >= 6) or (col <= 8):
+                    elif (col >= 6) and (col <= 8):
                         if self.valid_in_box(3, 6, num) is True:
                             return True
-                elif (row >= 6) or (row <= 8):
-                    if (col >= 0) or (col <= 2):
+
+                elif (row >= 6) and (row <= 8):
+                    if (col >= 0) and (col <= 2):
                         if self.valid_in_box(6, 0, num) is True:
                             return True
-                    elif (col >= 3) or (col <= 5):
+                    elif (col >= 3) and (col <= 5):
                         if self.valid_in_box(6, 3, num) is True:
                             return True
-                    elif (col >= 6) or (col <= 8):
+                    elif (col >= 6) and (col <= 8):
                         if self.valid_in_box(6, 6, num) is True:
                             return True
         return False
@@ -158,6 +160,14 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_box(self, row_start, col_start):
+        filled = False
+        for row_index in range(row_start, row_start+3):
+            for col_index in range(col_start, col_start+3):
+                while filled:
+                    num = random.randrange(1,10)
+                    if self.is_valid(row_index, col_index, num) is True:
+                        self.board[row_index][col_index] = num
+                        filled = True
 
     
     '''

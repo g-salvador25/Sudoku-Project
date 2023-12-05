@@ -1,4 +1,6 @@
 import pygame, sys
+from sudoku_generator import SudokuGenerator
+
 
 def draw_grid():
     for i in range(0, 10):
@@ -29,12 +31,18 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((540,540))
     screen.fill((255, 255, 245))
     draw_grid()
+    board = SudokuGenerator(9,9)
+    board.is_valid(9,9)
+
+
 
 while True:
     for event in pygame.event.get():
         pygame.display.flip()
         if event.type == pygame.QUIT:
             pygame.quit()
+
+
 
 
 
