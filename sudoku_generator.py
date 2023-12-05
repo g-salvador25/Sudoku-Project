@@ -274,7 +274,7 @@ class Cell:
         self.value = value
 
     def draw(self):
-        pass
+
     #this is not complete and needs to be done
 
 class Board():
@@ -310,3 +310,20 @@ class Board():
     def select(self, row, col):
 
     def click(self, x, y):
+
+    def clear(self):
+
+    def sketch(self, value):
+
+    def place_number(self, value):
+
+    def reset_to_original(self):
+
+    def is_full(self):
+
+    def update_board(self):
+
+    def find_empty(self):
+
+    def check_board(self):
+
