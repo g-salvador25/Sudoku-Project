@@ -12,9 +12,8 @@ class Cell:
         self.sketched_value = sketched_value
         self.screen = screen
         #self.board = generate_sudoku()
-
-
         self.selected = False
+
     def set_cell_value(self, value):
         self.board[self.row][self.col] = value
 
