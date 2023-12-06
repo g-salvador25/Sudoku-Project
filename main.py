@@ -42,8 +42,6 @@ class Board:
         self.screen = screen
         self.width = width
         self.height = height
-        self.screen = screen
-        self.cells
         self.selected_cell = None
 
     def draw(self):
