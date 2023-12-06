@@ -2,29 +2,6 @@ import pygame, sys
 from sudoku_generator import SudokuGenerator, generate_sudoku
 
 
-def draw_grid():
-    for i in range(0, 10): #draws horizontal lines
-        if i % 3 == 0:
-            width = 7
-        else:
-            width = 3
-        pygame.draw.line(screen,
-                         (0,0,0),
-                         (0, i * 60),
-                         (540, i * 60),
-                         width)
-
-    for i in range(0, 10): #draws vertical lines
-        if i % 3 == 0:
-            width = 7
-        else:
-            width = 3
-        pygame.draw.line(screen,
-                         (0,0,0),
-                         (i * 60, 0),
-                         (i * 60, 540),
-                         width)
-
 
 def draw_num(obj):
     font = pygame.font.SysFont(None, 60)
@@ -82,7 +59,7 @@ while True:
                     #else:
                         #highlight_cell(cell_col, cell_row, 'white')
 
-            click = 1
+            #click = 1
             #if click == 1:
                 #highlight_cell(cell_col, cell_row, 'white')
 

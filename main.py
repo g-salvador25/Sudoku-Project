@@ -5,33 +5,49 @@ from sudoku_generator import SudokuGenerator, generate_sudoku
 
 class Cell:
 
-    def __init__(self, value, row, col, screen):
+    def __init__(self, value, row, col, sketched_value, screen):
         self.value = value
         self.row = row
         self.col = col
+        self.sketched_value = sketched_value
         self.screen = screen
         #self.board = generate_sudoku()
-        self.selected = False
 
+
+        self.selected = False
     def set_cell_value(self, value):
         self.board[self.row][self.col] = value
 
-    def set_sketched_value(self, value):
-        self.value = value
+    def set_sketched_value(self, sketch):
+        self.sketched_value = sketch
 
     def draw(self):
+        cell_x = self.col * 60
+        cell_y = self.row * 60
+        cell_rect = pygame.Rect(cell_x,cell_y, 60, 60)
+        pygame.draw.rect(self.screen, (255,255,255), cell_rect)
+        if self.selected:
+            pygame.draw.rect(self.screen, (255,0,0), cell_rect, 3)
+        if self.value != 0:
+            font = pygame.font.Font(None, 60)
+            text = font.render(str(self.value), True, (0,0,0))
+            text_rect = text.get_rect(center=(cell_x+self.cell_size//2, cell_y+self.cell_size//2))
+            self.screen.blit(text, text_rect)
 
     #this is not complete and needs to be done
 
-class Board(Cell):
+class Board:
 
-    def __init__(self, width, height, screen):
+    def __init__(self, width, height, screen, board):
         self.screen = screen
         self.width = width
         self.height = height
+        self.screen = screen
+        self.board = board
+        self.selected_cell = None
 
     def draw(self):
-        for i in range(0, 10):
+        for i in range(0, 10): #draws horizontal lines
             if i % 3 == 0:
                 width = 7
             else:
@@ -42,7 +58,7 @@ class Board(Cell):
                              (540, i * 60),
                              width)
 
-        for i in range(0, 10):
+        for i in range(0, 10): #draws vertical lines
             if i % 3 == 0:
                 width = 7
             else:
@@ -52,19 +68,35 @@ class Board(Cell):
                              (i * 60, 0),
                              (i * 60, 540),
                              width)
+        #for row in self.cells
 
     def select(self, row, col):
+        if self.selected_cell: #checks if selected cell present
+            self.selected_cell.selected = False
+
+        self.selected_cell = self.board[row][col]
+        self.selected_cell.selected = True
         """Marks the cell at (row, col) in the board as the current selected cell.
         Once a cell has been selected, the user can edit its value or sketched value"""
 
     def click(self, x, y):
+        if (x <= 540) and (y <= 540):
+            row = y//60
+            col = x//60
+            return (row, col)
+        return None
         """If a tuple of (x, y) coordinates is within the displayed board, this function returns a tuple of the (row, col)
         of the cell which was clicked. Otherwise, this function returns None."""
+
     def clear(self):
+        row = self.click(x,y)[0]
+        col = self.click(x,y)[1]
         """Clears the value cell. Note that the user can only remove the cell values and sketched value that are
 filled by themselves."""
 
     def sketch(self, value):
+        if value == self.selected_cell:
+
         """Sets the sketched value of the current selected cell equal to user entered value.
 It will be displayed at the top left corner of the cell using the draw() function"""
 
