@@ -97,12 +97,12 @@ while True:
     #pygame.display.update()
     #draw_num(board)
 """
+
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((540, 540))  # creates a screen of 540x540 pixels
-    #screen.fill((255, 255, 245))  # sets color of screen
-     # creates board object from SudokuGenerator class
-    board_obj = Board(540, 540, screen)
+    screen = pygame.display.set_mode((540, 540))
+    board = generate_sudoku(9, 30)
+    board_obj = Board(540, 540, screen, board)
     board_obj.draw()
     pygame.display.flip()
 
@@ -119,18 +119,20 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 if board_obj.selected_cell:
                     if event.key == pygame.K_RETURN:
-                        value = (pygame.key.name(event.key))
                         board_obj.selected_cell.set_cell_value(value)
                     elif event.key == pygame.K_BACKSPACE:
                         board_obj.selected_cell.set_cell_value(0)
+                        board_obj.selected_cell.set_sketched_value(0)
                     elif event.key == pygame.K_1 or event.key == pygame.K_2 or event.key == pygame.K_3 or event.key == pygame.K_4 or event.key == pygame.K_5 or event.key == pygame.K_6 or event.key == pygame.K_7 or event.key == pygame.K_8 or event.key == pygame.K_9:
                         value = int(pygame.key.name(event.key))
                         board_obj.selected_cell.set_sketched_value(value)
         #screen.fill((255,255,255))
+        board_obj.update_board()
         board_obj.draw()
         pygame.display.flip()
 
+        if board_obj.is_full() and board_obj.check_board():
+                print("Congratulations! You win!")
 
-
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

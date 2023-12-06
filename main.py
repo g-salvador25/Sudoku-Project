@@ -32,16 +32,21 @@ class Cell:
             text = font.render(str(self.value), True, (0,0,0))
             text_rect = text.get_rect(center=(cell_x+60//2, cell_y+60//2))
             self.screen.blit(text, text_rect)
+        elif self.sketched_value != 0:
+            font = pygame.font.Font(None, 20)
+            text = font.render(str(self.sketched_value), True, (0, 0, 0))
+            text_rect = text.get_rect(topleft=(cell_x + 5, cell_y + 5))
+            self.screen.blit(text, text_rect)
 
 
 
 class Board:
 
-    def __init__(self, width, height, screen):
+    def __init__(self, width, height, screen, board):
         self.screen = screen
         self.width = width
         self.height = height
-        self.board = generate_sudoku(9, 30)
+        self.board = board
         self.cells = [[Cell(self.board[row][col], row, col, 0, screen) for col in range(9)]for row in range(9)]
         self.selected_cell = None
 
@@ -114,12 +119,17 @@ Called when the user presses the Enter key."""
     def is_full(self):
         for row in self.board:
             for cell in row:
-                if cell.value == 0:
+                if isinstance(cell, Cell) and cell.value == 0:
                     return False
         return True
         """Returns a Boolean value indicating whether the board is full or not."""
 
     def update_board(self):
+        for row in range(9):
+            for col in range(9):
+                cell_value = self.cells[row][col].value
+                self.board[row][col] = cell_value
+
         """Updates the underlying 2D board with the values in all cells."""
 
     def find_empty(self):
@@ -134,8 +144,8 @@ Called when the user presses the Enter key."""
     def check_board(self):
         for row in range(self.height):
             for col in range(self.width):
-                number = self.cells[row][col].get_value()
-                if number != 0 and not SudokuGenerator.is_valid(self, row, col, number):
+                num = self.cells[row][col].value
+                if num != 0 and not self.board[row][col//60] == num: #how to compare with answers
                     return False
         return True
         """Check whether the Sudoku board is solved correctly."""
