@@ -119,7 +119,7 @@ Called when the user presses the Enter key."""
     def is_full(self):
         for row in self.board:
             for cell in row:
-                if isinstance(cell, Cell) and cell.value == 0:
+                if cell == 0:
                     return False
         return True
         """Returns a Boolean value indicating whether the board is full or not."""
@@ -142,10 +142,19 @@ Called when the user presses the Enter key."""
 
 
     def check_board(self):
+        for row in self.board:
+            for col in self.board:
+                num = self.cells[row][col].value
+                if num != 0 and self.board.is_valid(row, col, self.cells[row][col]):
+                    return True
+        return False
+
+
+"""
         for row in range(self.height):
             for col in range(self.width):
                 num = self.cells[row][col].value
-                if num != 0 and not self.board[row][col//60] == num: #how to compare with answers
+                if num != 0 and self.board[row][col] != num: #how to compare with answers
                     return False
         return True
-        """Check whether the Sudoku board is solved correctly."""
+        Check whether the Sudoku board is solved correctly."""
